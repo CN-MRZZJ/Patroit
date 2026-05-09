@@ -3,7 +3,7 @@
 import { useRef, useState, type FormEvent } from "react";
 
 interface Props {
-  onSubmit: (athleteNumber: string, score: number) => Promise<void>;
+  onSubmit: (athleteNumber: string, score: string) => Promise<void>;
   disabled?: boolean;
 }
 
@@ -19,7 +19,7 @@ export default function ScoreEntryForm({ onSubmit, disabled }: Props) {
 
     setLoading(true);
     try {
-      await onSubmit(athleteNumber.trim(), parseFloat(score) || 0);
+      await onSubmit(athleteNumber.trim(), score.trim());
       setAthleteNumber("");
       setScore("");
       athleteRef.current?.focus();
@@ -63,14 +63,13 @@ export default function ScoreEntryForm({ onSubmit, disabled }: Props) {
         </label>
         <input
           id="score"
-          type="number"
-          inputMode="decimal"
+          type="text"
+          inputMode="text"
           autoComplete="off"
           value={score}
           onChange={(e) => setScore(e.target.value)}
           placeholder="0.0"
           disabled={disabled}
-          step="any"
           className="w-full h-12 px-4 text-base rounded-lg border border-gray-200
                      focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary
                      placeholder:text-gray-300 disabled:bg-gray-100"

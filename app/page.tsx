@@ -65,10 +65,10 @@ export default function Home() {
     loadEntries();
   }, [loadEntries]);
 
-  async function handleSubmit(athleteNumber: string, score: number) {
+  async function handleSubmit(athleteNumber: string, score: string) {
     setError(null);
     try {
-      const json = await createResult(athleteNumber, String(score));
+      const json = await createResult(athleteNumber, score);
       if (!json.ok) {
         setError(json.error ?? "录入失败");
         return;
